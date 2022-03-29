@@ -122,6 +122,14 @@ middleware.isLoggedIn = (req, res, next) => {
   res.redirect("/login");
 }
 
+//---------------
+// Logout 
+//---------------
+app.get("/logout", function(req, res){
+  req.logout();
+  res.redirect("/");
+});
+
 // =======================
 // Include Routes
 //========================
