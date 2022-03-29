@@ -12,13 +12,13 @@ function getAllServices() {
     return db(TABLE_NAMES.Service).select("*");
 }
 
-function deleteService({ service_id }) {
+function deleteService(service_id) {
     return db(TABLE_NAMES.Service).where("service_id", service_id).del();
 }
 
 function updateService(service) {
-    const { service_id } = service;
-    return db(TABLE_NAMES.Service).where("service_id", service_id).update(admin);
+    const { service_id , ...rest} = service;
+    return db(TABLE_NAMES.Service).where("service_id", service_id).update(rest);
 }
 
 module.exports = {

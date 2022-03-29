@@ -16,7 +16,7 @@ function getAllAdmins() {
     return db(TABLE_NAMES.Admin).select("*");
 }
 
-function deleteAdmin({ admin_id }) {
+function deleteAdmin(admin_id) {
     return db(TABLE_NAMES.Admin).where("admin_id", admin_id).del();
 }
 

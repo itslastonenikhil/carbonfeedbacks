@@ -14,13 +14,11 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 
-const loginRoute = require("./routes/login");
-
 //========================================
 //  PASSPORT CONFIGURATION
 //========================================
 
-const PORT = 3000;
+const PORT = 4000;
 const app = express();
 
 app.use(
@@ -55,8 +53,8 @@ async function verifyUser(user, password, done) {
   let isMatching = false
 
   try {
-    // isMatching = await bcrypt.compare(password, user.password)
-    isMatching = (password == user.password)
+    isMatching = await bcrypt.compare(password, user.password)
+    // isMatching = (password == user.password)
 
 
     if (!isMatching)
@@ -110,17 +108,6 @@ app.use((req, res, next) => {
   next();
 });
 
-//----------------
-//  Check Login
-//----------------
-const middleware = {}
-middleware.isLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  // req.flash("error", "Please Login First!");
-  res.redirect("/login");
-}
 
 //---------------
 // Logout 
@@ -133,8 +120,12 @@ app.get("/logout", function(req, res){
 // =======================
 // Include Routes
 //========================
-app.use("/login", loginRoute);
+app.use("/dashboard", routes.dashboard);
+app.use("/register", routes.register);
+app.use("/login", routes.login);
 
+
+ 
 //------------
 //Routes
 //------------
@@ -147,17 +138,6 @@ app.get("/", async (req, res) => {
   res.send("<h1>Hello World</h1>");
 });
 
-app.get("/create-admin", async (req, res) => {
-  const admin_obj = {
-    admin_id: nanoid(),
-    username: "nikhil_maurya",
-    password: "ilovebbc",
-    email: "maurya.kumar@iiitg.ac.in",
-    created_at: utility.getDate(),
-  };
-
-  res.send(await admin.createAdmin(admin_obj));
-});
 
 app.listen(PORT, (req, res, err) => {
   console.log(`Server started at http://localhost:${PORT}`);

@@ -12,13 +12,13 @@ function getAllFeedbacks() {
     return db(TABLE_NAMES.Feedback).select("*");
 }
 
-function deleteFeedback({ feedback_id }) {
+function deleteFeedback(feedback_id) {
     return db(TABLE_NAMES.Feedback).where("feedback_id", feedback_id).del();
 }
 
 function updateFeedback(feedback) {
-    const { feedback_id } = feedback;
-    return db(TABLE_NAMES.Feedback).where("feedback_id", feedback_id).update(feedback);
+    const { feedback_id, ...rest} = feedback;
+    return db(TABLE_NAMES.Feedback).where("feedback_id", feedback_id).update(rest);
 }
 
 module.exports = {
