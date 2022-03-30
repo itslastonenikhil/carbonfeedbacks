@@ -1,0 +1,36 @@
+<%- include("./partials/header.ejs") %>
+
+<div class="container">
+    <div class="card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-lg-6 d-none d-lg-flex">
+                    <div class="flex-grow-1 bg-password-image" style="background: url(&quot;/img/logo1.png&quot;) center / cover no-repeat;"></div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-2">Carbon Feedbacks</h4>
+                            <hr>
+                            <p class="mb-4">Encompass the genuine<br>sentiment of the users towards a particular product or service.</p>
+                        </div>
+                        <form class="user">
+                            <div class="mb-3"><a class="btn btn-primary d-block btn-user w-100" role="button" href="/login/admin">Login As Admin</a></div>
+                            <div class="mb-3"><a class="btn btn-warning d-block btn-user w-100" role="button" href="/register/admin">Register As Admin</a></div>
+                        </form>
+                        <hr>
+                        <div class="text-center">
+                            <p class="mb-4">Sometimes, 5 stars aren't enough to encompass your feelings, you can write it out. Your feedback help us improve.&nbsp;</p>
+                        </div>
+                        <form class="user">
+                            <div class="mb-3"><a class="btn btn-danger d-block btn-user w-100" role="button" href="login/user">Login As User</a></div>
+                            <div class="mb-3"><a class="btn btn-dark d-block btn-user w-100" role="button" href="/register/user">Register As User</a></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include("./partials/footer.ejs") %>

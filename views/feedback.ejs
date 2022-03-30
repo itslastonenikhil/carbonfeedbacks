@@ -1,0 +1,65 @@
+<%- include("./partials/header.ejs") %>
+
+<div class="container-fluid">
+    <h3 class="text-dark mb-4">Feedbacks</h3>
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <p class="text-primary m-0 fw-bold">Feedback Information</p>
+        </div>
+
+        <!-- user -->
+        <div class="card-body">
+            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                <table class="table my-0" id="dataTable">
+                    <thead>
+                        <tr>
+                            
+                        	<% if(type === "admin"){ %>
+                            	<th>Name</th>
+                            <% } %>
+                            <th>Feedback Description</th>
+                            <th>Service</th>
+                            <% if(type === "admin"){ %>
+                            	<th>Sentiment</th>
+                            <% } %>
+                            <th>Created At</th>
+                        </tr>
+                    </thead>
+                    <% feedbacks.forEach(function(feedback){ %>
+                    <tbody>
+                        <tr>
+                            <% console.log(type) %> 
+                        	<% if(type === "admin"){ %>
+                            	<td><%= feedback.name %></td>
+                            <% } %>
+                            <td><%= feedback.description %> <br></td>
+                            <td><%= feedback.service_name  %> </td>
+                            <% if(type === "admin"){ %>
+                            	<td><%= feedback.sentiment %></td>
+                            <% } %>
+                            <td><%= feedback.created_at %> <br></td>
+                        </tr>
+                    </tbody>
+                    <% })%>
+                    <tfoot>
+                        <tr>
+                            <% if(type === "admin"){ %>
+                            	<td><strong>Name</strong></td>
+                            <% } %>
+                            <td><strong>Feedback Description</strong></td>
+                            <td><strong>Service</strong></td>
+                            <% if(type === "admin"){ %>
+                                <td><strong>Sentiment</strong></td>	
+                            <% } %>
+                            <td><strong>Created At</strong></td>
+                          
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<%- include("./partials/footer.ejs") %>

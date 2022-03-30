@@ -105,6 +105,19 @@ passport.deserializeUser(function (user, done) {
 
 app.use((req, res, next) => {
   res.locals.current_user = req.user;
+  
+  //set user type
+  let user_type;
+  if(req.user){
+    if(req.user.user_id)
+      user_type = 'user';
+    else
+      user_type = 'admin';
+  }
+  
+
+  res.locals.type = user_type
+  
   next();
 });
 
@@ -131,7 +144,7 @@ app.use("/login", routes.login);
 //------------
 
 app.get("/", (req, res) => {
-  res.redirect('/login/admin');
+  res.render("index.ejs")
 });
 
 app.get("/", async (req, res) => {

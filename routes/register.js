@@ -5,6 +5,10 @@ const bcrypt = require('bcrypt');
 const { User, Admin } = require('../database');
 const { nanoid } = require('nanoid');
 
+router.get("/", (req, res)=>{
+    res.redirect("/");
+})
+
 router.get('/admin', (req, res) => {
     res.render('register.ejs', { type: 'admin' });
 });

@@ -25,10 +25,20 @@ function updateFeedback(feedback) {
     return db(TABLE_NAMES.Feedback).where("feedback_id", feedback_id).update(rest);
 }
 
+function getAllFeedbacksByAdminId(admin_id){
+    return db(TABLE_NAMES.Feedback).join(TABLE_NAMES.Service, `${TABLE_NAMES.Feedback}.service_id`, `${TABLE_NAMES.Service}.service_id`).where('admin_id', admin_id)
+}
+
+function getAllFeedbacksByUserId(user_id){
+    return db(TABLE_NAMES.Feedback).join(TABLE_NAMES.Service, `${TABLE_NAMES.Feedback}.service_id`, `${TABLE_NAMES.Service}.service_id`).where('user_id', user_id)
+}
+
 module.exports = {
     createFeedback,
     getFeedbackByFeedbackId,
     getFeedbackByServiceId,
+    getAllFeedbacksByAdminId,
+    getAllFeedbacksByUserId,
     getAllFeedbacks,
     deleteFeedback,
     updateFeedback

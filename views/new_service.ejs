@@ -1,0 +1,25 @@
+<%- include("./partials/header.ejs") %>
+<div class="container">
+    <div class="card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+            <div class="row d-flex justify-content-lg-center">
+                <div class="col" style="background: url(&quot;/img/dog2.jpg&quot;) center / cover no-repeat;"></div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4">Create Service</h4>
+                        </div>
+                        <form class="user" method="post" action=<%= `/dashboard/admin/${current_user.username}/services` %>>
+                            <div class="mb-3">
+                                <input class="form-control" type="text" style="border-radius: 12px;margin-bottom: 12px;font-size: 12.8px;" name="service_name" placeholder="Enter Service Name">
+                                <textarea class="form-control" style="border-radius: 12px;font-size: 12.8px;" name="desc" placeholder="Enter Service Description"></textarea>
+                            </div>
+                            <div class="text-end mb-3"><button class="btn btn-secondary btn-icon-split" type="submit"><span class="text-white-50 icon"><i class="fas fa-arrow-right"></i></span><span class="text-white text" style="font-size: 12.8px;">Submit Service</span></button></a></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include("./partials/footer.ejs") %>

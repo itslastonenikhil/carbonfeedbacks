@@ -4,44 +4,52 @@ const middleware = require('./middleware');
 const { User, Admin, Service, Feedback } = require('../database');
 const utility = require('../utility');
 const { nanoid } = require('nanoid');
+const { isLoggedIn } = require('./middleware');
 
 //===================
 // USER ROUTES
 //===================
 
 router.get('/user/:username', middleware.isLoggedIn, (req, res) => {
-	res.render('dashboard.ejs', { type: 'user' });
+	res.redirect(`/dashboard/user/${req.params.username}/feedbacks`);
 });
+
+router.get('/user/:username/profile', middleware.isLoggedIn, (req, res)=>{
+	res.render("profile.ejs");
+})
 
 //User Feedback Routes
 //---------------------
 
 // Show all feedbacks ------
 
-router.get('/user/:username/feedbacks', middleware.isLoggedIn, (req, res) => {
-	res.send('Feedbacks page');
+router.get('/user/:username/feedbacks', middleware.isLoggedIn, async(req, res) => {
+	const user = (await User.getUserByUsername(req.params.username))[0];
+	const feedbacks = await Feedback.getAllFeedbacksByUserId(user.user_id);
+
+	res.render("feedback.ejs", { feedbacks });
 });
 
 // Create new feedback ------
 
 // Feedback form
-router.get(
-	'/user/:username/feedbacks/new',
-	middleware.isLoggedIn,
-	(req, res) => {},
-);
+router.get('/user/:username/feedbacks/new',middleware.isLoggedIn, async(req, res) => {
+	let services = await Service.getAllServices();
+	
+	res.render("new_feedback.ejs", {services});
+});
 
 // Add feedback
 router.post(
 	'/user/:username/feedbacks',
 	middleware.isLoggedIn,
-	middleware.isAdmin,
 	async (req, res) => {
+		console.log("Adding feedack");
+		console.log(req.body);
 		const date = utility.getDate();
 
 		//get user from database
-		let user = await User.getUserByUsername(req.params.username);
-		user = user[0];
+		const user = (await User.getUserByUsername(req.params.username))[0];
 
 		//get feedback desc
 		let desc = req.body.description;
@@ -62,7 +70,7 @@ router.post(
 		await Feedback.createFeedback(new_feedback);
 
 		res.redirect(`/dashboard/user/${req.params.username}/feedbacks`);
-	},
+	}
 );
 
 // Update feedback ------
@@ -105,10 +113,20 @@ router.delete(
 //===================
 // ADMIN ROUTES
 //===================
-router.get('/admin/:username', middleware.isLoggedIn, async (req, res) => {
-	const { username } = req.params;
 
+router.get('/admin/:username', middleware.isLoggedIn, async(req, res)=>{
+	res.redirect(`/dashboard/admin/${req.params.username}/feedbacks`);
+})
+
+router.get('/admin/:username/profile', middleware.isLoggedIn, (req, res)=>{
+	res.render("profile.ejs");
+})
+
+router.get('/admin/:username/report', middleware.isLoggedIn, async (req, res) => {
+	const { username } = req.params;
+	
 	const admin = (await Admin.getAdminByUsername(username))[0];
+	
 	const services = await Service.getServiceByAdminId(admin.admin_id);
 
 	const service_sentiments = [];
@@ -159,7 +177,7 @@ router.get('/admin/:username', middleware.isLoggedIn, async (req, res) => {
 		service_sentiments.push(sentiment_obj);
 	}
 
-	res.render('dashboard.ejs', {
+	res.render('report.ejs', {
 		type: 'admin',
 		sentiments: service_sentiments,
 		count: feedback_count,
@@ -167,24 +185,32 @@ router.get('/admin/:username', middleware.isLoggedIn, async (req, res) => {
 	});
 });
 
+
+router.get('/admin/:username/feedbacks', middleware.isLoggedIn, async(req, res)=>{
+	const admin = (await Admin.getAdminByUsername(req.params.username))[0];
+	const feedbacks = await Feedback.getAllFeedbacksByAdminId(admin.admin_id);
+
+	for(let i = 0; i < feedbacks.length; i++) {
+		const feedback = feedbacks[i];
+		feedback.name = (await User.getUserById(feedback.user_id))[0].username;
+	}
+
+	res.render("feedback.ejs", { feedbacks });
+	
+})
+
+
+
 // Create new service ------
 
-router.get(
-	'/admin/:username/services',
-	middleware.isLoggedIn,
-	async (req, res) => {
-		res.send('Service Page');
-	},
-);
+router.get('/admin/:username/services',middleware.isLoggedIn,async (req, res) => {
+	res.redirect(`/dashboard/admin/${req.params.username}/feedbacks`)
+});
 
 // Service form
-router.get(
-	'/admin/:username/services/new',
-	middleware.isLoggedIn,
-	(req, res) => {
-		res.send('Add new service');
-	},
-);
+router.get('/admin/:username/services/new',middleware.isLoggedIn,(req, res) => {
+	res.render("new_service.ejs");
+});
 
 // Add service
 router.post(
