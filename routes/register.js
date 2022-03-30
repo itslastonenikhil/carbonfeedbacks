@@ -6,13 +6,11 @@ const { User, Admin } = require('../database');
 const { nanoid } = require('nanoid');
 
 router.get('/admin', (req, res) => {
-    res.send("Register Admin");
-    // res.render('index/register.ejs');
+    res.render('register.ejs', { type: 'admin' });
 });
 
 router.get('/user', (req, res) => {
-    res.send("Register User");
-    // res.render('index/register.ejs');
+    res.render('register.ejs', { type: 'user' });
 });
 
 async function createUser(details) {

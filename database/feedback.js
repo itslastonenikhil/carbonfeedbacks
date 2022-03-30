@@ -4,8 +4,12 @@ function createFeedback(feedback) {
     return db(TABLE_NAMES.Feedback).insert(feedback);
 }
 
-function getFeedback({ feedback_id }) {
+function getFeedbackByFeedbackId(feedback_id) {
     return db(TABLE_NAMES.Feedback).where("feedback_id", feedback_id);
+}
+
+function getFeedbackByServiceId(service_id) {
+    return db(TABLE_NAMES.Feedback).where("service_id", service_id);
 }
 
 function getAllFeedbacks() {
@@ -23,7 +27,8 @@ function updateFeedback(feedback) {
 
 module.exports = {
     createFeedback,
-    getFeedback,
+    getFeedbackByFeedbackId,
+    getFeedbackByServiceId,
     getAllFeedbacks,
     deleteFeedback,
     updateFeedback
