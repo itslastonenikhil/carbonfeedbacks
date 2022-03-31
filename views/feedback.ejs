@@ -29,7 +29,20 @@
                             
                         	<% if(type === "admin"){ %>
                             	<td><%= feedback.name %></td>
-                                <td><%= feedback.sentiment %></td>
+
+                                <% if (feedback.sentiment >= -0.2 && feedback.sentiment <= 0.2){ %> 
+				
+                                    <td>Neutral</td>
+                                <% } %>  
+                                <%  if (feedback.sentiment < -0.2){ %>
+                                    
+                                    <td>Negative</td>
+                                <% } %>  
+                                <% if(feedback.sentiment > 0.2){ %> 
+                                    
+                                    <td>Positive</td>
+                                <% } %>  
+                                
                             <% } %>
 
                             <td><%= feedback.description %> <br></td>

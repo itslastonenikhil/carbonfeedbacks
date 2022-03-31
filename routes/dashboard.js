@@ -158,22 +158,31 @@ router.get('/admin/:username/report', middleware.isLoggedIn, async (req, res) =>
 		let positive, negative, neutral;
 		positive = negative = neutral = 0;
 
-		for (let feedback in feedbacks) {
+		feedbacks.forEach(feedback => {
 			const { sentiment: curr_sentiment } = feedback;
-
-			if (curr_sentiment >= -0.2 && curr_sentiment <= 0.2)
+			
+			if (curr_sentiment >= -0.2 && curr_sentiment <= 0.2){
+				
 				neutral++;
-			else if (curr_sentiment <= -0.2) negative++;
-			else positive++;
-		}
-
+			}
+			else if (curr_sentiment <= -0.2){
+				
+				negative++;
+			} 
+			else{
+				
+				positive++;
+			}
+		}); 
+	
 		sentiment_obj.total = positive + negative + neutral;
+	
 		sentiment_obj.positive_per = sentiment_obj.neutral_per = sentiment_obj.negative_per = 0;
 
 		if(sentiment_obj.total) {
-			sentiment_obj.positive_per = (positive/sentiment_obj.total)*100;
-			sentiment_obj.neutral_per = (neutral/sentiment_obj.total)*100;
-			sentiment_obj.negative_per = (negative/sentiment_obj.total)*100;
+			sentiment_obj.positive_per = ((positive/sentiment_obj.total)*100).toFixed(3);
+			sentiment_obj.neutral_per = ((neutral/sentiment_obj.total)*100).toFixed(3);
+			sentiment_obj.negative_per = ((negative/sentiment_obj.total)*100).toFixed(3);
 		}
 
 		pie_chart.positive += positive;
