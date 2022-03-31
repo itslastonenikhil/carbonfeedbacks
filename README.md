@@ -37,6 +37,24 @@ or yarn
   yarn
   yarn start
 ```
+## Screenshots
+
+> Admin Feedbacks Dashboard
+![App Screenshot](https://raw.githubusercontent.com/itslastonenikhil/carbonfeedbacks/main/meta/admin_feedbacks.png)
+
+> Admin Report Dashboard
+![App Screenshot](https://raw.githubusercontent.com/itslastonenikhil/carbonfeedbacks/main/meta/admin_report.png)
+
+> Create Feedbacks
+![App Screenshot](https://raw.githubusercontent.com/itslastonenikhil/carbonfeedbacks/main/meta/create_feedback.png)
+
+> Services Dashboard
+![App Screenshot](https://raw.githubusercontent.com/itslastonenikhil/carbonfeedbacks/main/meta/services.png)
+
+> User Feedback Dashboard
+![App Screenshot](https://raw.githubusercontent.com/itslastonenikhil/carbonfeedbacks/main/meta/user_feedbacks.png)
+
+
 ## Authors
 
 - [Nikhil Maurya](https://www.github.com/itslastonenikhil)
