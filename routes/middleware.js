@@ -13,7 +13,7 @@ middleware.isLoggedIn = (req, res, next) => {
 
 middleware.isAdmin = (req, res, next)=>{
   if(req.isAuthenticated()){
-      console.log(req.user);
+      console.log(" ");
   }
 
   return next();

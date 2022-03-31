@@ -44,8 +44,7 @@ router.post(
 	'/user/:username/feedbacks',
 	middleware.isLoggedIn,
 	async (req, res) => {
-		console.log("Adding feedack");
-		console.log(req.body);
+	
 		const date = utility.getDate();
 
 		//get user from database
@@ -75,11 +74,18 @@ router.post(
 
 // Update feedback ------
 
+router.get('/user/:username/feedbacks/:feedback_id', middleware.isLoggedIn, async(req, res)=>{
+	let feedback = (await Feedback.getFeedbackByFeedbackId(req.params.feedback_id))[0];
+	let services = await Service.getAllServices();
+	res.render("update_feedback.ejs", {feedback, services});
+})
+
 router.put(
 	'/user/:username/feedbacks/:feedback_id',
 	middleware.isLoggedIn,
 	async (req, res) => {
 		//get feedback desc
+		
 		let description = req.body.description;
 
 		//get feedback sentiment
@@ -88,7 +94,7 @@ router.put(
 		//get feedback
 		const updated_feedback = req.body;
 		updated_feedback.sentiment = sentiment;
-		updated_feedback.description = description;
+		updated_feedback.feedback_id = req.params.feedback_id;
 
 		//update feedback
 		await Feedback.updateFeedback(updated_feedback);
@@ -204,7 +210,9 @@ router.get('/admin/:username/feedbacks', middleware.isLoggedIn, async(req, res)=
 // Create new service ------
 
 router.get('/admin/:username/services',middleware.isLoggedIn,async (req, res) => {
-	res.redirect(`/dashboard/admin/${req.params.username}/feedbacks`)
+	const admin = (await Admin.getAdminByUsername(req.params.username))[0];
+	const services = await Service.getServiceByAdminId(admin.admin_id);
+	res.render("service.ejs", {services});
 });
 
 // Service form
@@ -221,7 +229,7 @@ router.post(
 
 		let admin = await Admin.getAdminByUsername(req.params.username);
 		admin = admin[0];
-		console.log(admin);
+	
 
 		const new_service = {
 			service_id: nanoid(),
@@ -233,25 +241,28 @@ router.post(
 
 		await Service.createService(new_service);
 
-		console.log(new_service);
+	
 		res.redirect(`/dashboard/admin/${req.params.username}/services`);
 	},
 );
 
 // Update service ------
+router.get('/admin/:username/services/:service_id', middleware.isLoggedIn, async(req, res)=>{
+	
+	let service = (await Service.getServiceByServiceId(req.params.service_id))[0];
+	res.render("update_service.ejs", {service});
+})
 
 router.put(
 	'/admin/:username/services/:service_id',
 	middleware.isLoggedIn,
 	async (req, res) => {
 		//get feedback desc
-		let service_desc = req.body.service_desc;
-		let service_name = req.body.service_name;
+	
 
 		//get feedback
 		const updated_service = req.body;
-		updated_service.service_desc = service_desc;
-		updated_service.service_name = service_name;
+		updated_service.service_id = req.params.service_id;
 
 		//update feedback
 		await Service.updateService(updated_service);
@@ -267,9 +278,9 @@ router.delete(
 	'/admin/:username/services/:service_id',
 	middleware.isLoggedIn,
 	async (req, res) => {
-		console.log(req.params);
+	
 		await Service.deleteService(req.params.service_id);
-		console.log('service deleted');
+	
 		res.redirect(`/dashboard/admin/${req.params.username}/services`);
 	},
 );

@@ -16,28 +16,38 @@
                             
                         	<% if(type === "admin"){ %>
                             	<th>Name</th>
+                                <th>Sentiment</th>
                             <% } %>
                             <th>Feedback Description</th>
                             <th>Service</th>
-                            <% if(type === "admin"){ %>
-                            	<th>Sentiment</th>
-                            <% } %>
                             <th>Created At</th>
                         </tr>
                     </thead>
                     <% feedbacks.forEach(function(feedback){ %>
                     <tbody>
                         <tr>
-                            <% console.log(type) %> 
+                            
                         	<% if(type === "admin"){ %>
                             	<td><%= feedback.name %></td>
+                                <td><%= feedback.sentiment %></td>
                             <% } %>
+
                             <td><%= feedback.description %> <br></td>
                             <td><%= feedback.service_name  %> </td>
-                            <% if(type === "admin"){ %>
-                            	<td><%= feedback.sentiment %></td>
-                            <% } %>
                             <td><%= feedback.created_at %> <br></td>
+                            <% if(type === "user"){ %> 
+                                <td style="text-align: right;">
+                                    <div style="margin-bottom: 6px;">
+                                        <form method="post" action=<%= `/dashboard/user/${current_user.username}/feedbacks/${feedback.feedback_id}?_method=DELETE`%>><button class="btn btn-danger btn-icon-split" type="submit"><span class="text-white-50 icon"><i class="fas fa-trash"></i></span><span class="text-white text" style="font-size: 12.8px;">Delete</span></button></form>
+                                    </div>
+                                    <div style="margin-bottom: 6px;">
+                                        <a class="btn btn-warning btn-icon-split" role="button" href=<%=`/dashboard/user/${current_user.username}/feedbacks/${feedback.feedback_id}` %>>
+                                            <span class="text-white-50 icon"><i class="fas fa-file-upload"></i></span>
+                                        <span class="text-white text" style="font-size: 12.8px;">Update</span></a>
+                                    </div>
+                                </td>
+                            <% }%> 
+                    
                         </tr>
                     </tbody>
                     <% })%>
@@ -45,12 +55,10 @@
                         <tr>
                             <% if(type === "admin"){ %>
                             	<td><strong>Name</strong></td>
+                                <td><strong>Sentiment</strong></td>	
                             <% } %>
                             <td><strong>Feedback Description</strong></td>
                             <td><strong>Service</strong></td>
-                            <% if(type === "admin"){ %>
-                                <td><strong>Sentiment</strong></td>	
-                            <% } %>
                             <td><strong>Created At</strong></td>
                           
                         </tr>

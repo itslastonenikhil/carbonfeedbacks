@@ -1,0 +1,30 @@
+<%- include("./partials/header.ejs") %>
+<div class="container">
+    <div class="card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+            <div class="row d-flex justify-content-lg-center">
+                <div class="col" style="background: url(&quot;/img/pug1.jpg&quot;) center / cover no-repeat;"></div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4">Create Feedback</h4>
+                        </div>
+                        <form class="user" action=<%= `/dashboard/user/${current_user.username}/feedbacks/${feedback.feedback_id}?_method=PUT`%> method="POST">
+                            <div class="mb-3">
+                                <select name="service_id"class="form-select" style="border-radius: 12px;margin-bottom: 12px;font-size: 12.8px;">
+                                    
+                                    <optgroup label="Select Service">
+                                        <% services.forEach(function(service){ %>
+                                            <option value=<%= service.service_id %>><%= service.service_name %></option>
+                                        <% }) %> 
+                                    </optgroup>
+                                </select><textarea class="form-control" style="border-radius: 12px;font-size: 12.8px;" name="description" placeholder="Enter Feedback"><%= feedback.description %> </textarea></div>
+                            <div class="text-end mb-3"><button class="btn btn-secondary btn-icon-split" type="submit"><span class="text-white-50 icon"><i class="fas fa-arrow-right"></i></span><span class="text-white text" style="font-size: 12.8px;">Submit Feedback</span></button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include("./partials/footer.ejs") %>

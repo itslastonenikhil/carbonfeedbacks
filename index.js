@@ -13,6 +13,7 @@ const utility = require("./utility");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
+const methodOverride  = require("method-override");
 
 //========================================
 //  PASSPORT CONFIGURATION
@@ -36,6 +37,7 @@ app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(methodOverride('_method'))
 
 async function verifyUser(user, password, done) {
   //If user does not exists, then the array is length
@@ -59,7 +61,7 @@ async function verifyUser(user, password, done) {
 
     if (!isMatching)
       return done(null, false, { message: "Incorrect Password" });
-    else console.log("Password matches!");
+    
 
     return done(null, user);
 

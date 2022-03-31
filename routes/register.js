@@ -19,7 +19,7 @@ router.get('/user', (req, res) => {
 
 async function createUser(details) {
     const { username, password, email } = details;
-    console.log("Details: ", details);
+  
 
     const date = utility.getDate();
 
@@ -41,12 +41,9 @@ router.post('/admin', async (req, res) => {
     const new_admin = await createUser(req.body);
     new_admin.admin_id = nanoid();
 
-    console.log(new_admin);
-    console.log("Working");
-
     try {
         const result = await Admin.createAdmin(new_admin);
-        console.log(result);
+        
     } catch (error) {
         throw error;
     }
@@ -55,9 +52,9 @@ router.post('/admin', async (req, res) => {
 });
 
 router.post('/user', async (req, res) => {
-    console.log("Registering new user");
+    
     const new_user = await createUser(req.body);
-    console.log(new_user)
+   
     new_user.user_id = nanoid();
 
     try {

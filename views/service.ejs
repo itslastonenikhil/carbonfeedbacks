@@ -1,0 +1,61 @@
+<%- include("./partials/header.ejs") %>
+
+<div class="container-fluid">
+    <h3 class="text-dark mb-4">Services</h3>
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <p class="text-primary m-0 fw-bold">Service Information</p>
+        </div>
+
+        <!-- user -->
+        <div class="card-body">
+            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                <table class="table my-0" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Created At</th>
+                        </tr>
+                    </thead>
+                    <% services.forEach(function(service){ %>
+                    <tbody>
+                        <tr>                        	
+                            <td><%= service.service_name %> <br></td>
+                            <td><%= service.service_desc %> </td>
+                            <td><%= service.created_at %> <br></td>
+                            <td style="text-align: right;">
+                                <div style="margin-bottom: 6px;">
+                                    <form method="post" action=<%= `/dashboard/admin/${current_user.username}/services/${service.service_id}?_method=DELETE`%>>
+                                        <button class="btn btn-danger btn-icon-split" type="submit"><span class="text-white-50 icon">
+                                        <i class="fas fa-trash"></i>
+                                        </span><span class="text-white text" style="font-size: 12.8px;">Delete</span>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div style="margin-bottom: 6px;">
+                                    <a class="btn btn-warning btn-icon-split" role="button" href=<%=`/dashboard/admin/${current_user.username}/services/${service.service_id}` %>>
+                                        <span class="text-white-50 icon"><i class="fas fa-file-upload"></i></span>
+                                    <span class="text-white text" style="font-size: 12.8px;">Update</span></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <% })%>
+                    <tfoot>
+                        <tr>
+                            
+                            <td><strong>Name</strong></td>
+                            <td><strong>Description</strong></td>
+                            <td><strong>Created At</strong></td>
+                          
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<%- include("./partials/footer.ejs") %>
