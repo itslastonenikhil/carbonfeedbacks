@@ -1,6 +1,6 @@
 # Carbon Feedbacks
 
-The purpose of developing a “Feedback Assessment System” is to encompass the genuine sentiment of the users towards a particular product or service.
+Carbon Feedbacks is a feedback analysis and management web application. Its aim is to encompass the genuine sentiment of the users towards a particular product or service.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/itslastonenikhil/carbonfeedbacks/dc8e3d6c2831ca8311dc81a6c2913a97c508ea2f/meta/logo1.svg" alt="Logo" width="450"/>
