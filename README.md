@@ -6,14 +6,22 @@ The purpose of developing a “Feedback Assessment System” is to encompass the
   <img src="https://raw.githubusercontent.com/itslastonenikhil/carbonfeedbacks/dc8e3d6c2831ca8311dc81a6c2913a97c508ea2f/meta/logo1.svg" alt="Logo" width="450"/>
 </div>
 
+## Documents
+
+- <a href="/documentation/SRS">SRS</a>
+- <a href="/documentation/ER-diagram">ER Diagram</a>
+- <a href ="/documentation/Use-Case-Diagram">Use case Diagram</a>
+- <a href="/documentation/DFD">Data flow Diagram</a>
+
 ## Requirements
+
 - Node.js versions 16+ are <a href = "https://nodejs.org/en/">supported</a>.
 
 - <a href = "https://sqlitebrowser.org/dl/">DB browser</a>
 
 - <a href = "https://www.python.org/downloads/release/python-2718/">Python 2</a>
 
-Running this project in VS Code might require Visual Studio Build Tools or Visual Studio with the <i>Desktop Development with C++</i> package enabled. Click <a href = "https://visualstudio.microsoft.com/downloads/">here</a> if it's needed. 
+Running this project in VS Code might require Visual Studio Build Tools or Visual Studio with the <i>Desktop Development with C++</i> package enabled. Click <a href = "https://visualstudio.microsoft.com/downloads/">here</a> if it's needed.
 
 There can also be an instance where the msvs_version might not work with the current VS version.
 Set the msvs version to the VS version
@@ -23,7 +31,6 @@ Set the msvs version to the VS version
   npm config set msvs_version ="Visual_Studio_version"
 ```
 
-
 ## Deployment
 
 To deploy this project run with node
@@ -32,28 +39,30 @@ To deploy this project run with node
   npm i
   npm start
 ```
+
 or yarn
+
 ```bash
   yarn
   yarn start
 ```
+
 ## Screenshots
 
 > Admin Feedbacks Dashboard
-![App Screenshot](https://raw.githubusercontent.com/itslastonenikhil/carbonfeedbacks/main/meta/admin_feedbacks.png)
+> ![App Screenshot](https://raw.githubusercontent.com/itslastonenikhil/carbonfeedbacks/main/meta/admin_feedbacks.png)
 
 > Admin Report Dashboard
-![App Screenshot](https://raw.githubusercontent.com/itslastonenikhil/carbonfeedbacks/main/meta/admin_report.png)
+> ![App Screenshot](https://raw.githubusercontent.com/itslastonenikhil/carbonfeedbacks/main/meta/admin_report.png)
 
 > Create Feedbacks
-![App Screenshot](https://raw.githubusercontent.com/itslastonenikhil/carbonfeedbacks/main/meta/create_feedback.png)
+> ![App Screenshot](https://raw.githubusercontent.com/itslastonenikhil/carbonfeedbacks/main/meta/create_feedback.png)
 
 > Services Dashboard
-![App Screenshot](https://raw.githubusercontent.com/itslastonenikhil/carbonfeedbacks/main/meta/services.png)
+> ![App Screenshot](https://raw.githubusercontent.com/itslastonenikhil/carbonfeedbacks/main/meta/services.png)
 
 > User Feedback Dashboard
-![App Screenshot](https://raw.githubusercontent.com/itslastonenikhil/carbonfeedbacks/main/meta/user_feedbacks.png)
-
+> ![App Screenshot](https://raw.githubusercontent.com/itslastonenikhil/carbonfeedbacks/main/meta/user_feedbacks.png)
 
 ## Authors
 
