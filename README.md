@@ -8,10 +8,10 @@ The purpose of developing a “Feedback Assessment System” is to encompass the
 
 ## Documents
 
-- <a href="/documentation/SRS">SRS</a>
-- <a href="/documentation/ER-diagram">ER Diagram</a>
-- <a href ="/documentation/Use-Case-Diagram">Use case Diagram</a>
-- <a href="/documentation/DFD">Data flow Diagram</a>
+- <a href="/documentation/SRS.pdf">SRS</a>
+- <a href="/documentation/ER-diagram.pdf">ER Diagram</a>
+- <a href ="/documentation/Use-Case-Diagram.pdf">Use case Diagram</a>
+- <a href="/documentation/DFD.pdf">Data flow Diagram</a>
 
 ## Requirements
 
