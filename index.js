@@ -13,13 +13,13 @@ const utility = require("./utility");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const methodOverride  = require("method-override");
+const methodOverride = require("method-override");
 
 //========================================
 //  PASSPORT CONFIGURATION
 //========================================
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 const app = express();
 
 app.use(
@@ -37,7 +37,7 @@ app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(methodOverride('_method'))
+app.use(methodOverride("_method"));
 
 async function verifyUser(user, password, done) {
   //If user does not exists, then the array is length
@@ -52,49 +52,45 @@ async function verifyUser(user, password, done) {
   const hashedPassword = await bcrypt.hash(password, salt);
 
   //Comparing the hashed passowrd with the current typed password
-  let isMatching = false
+  let isMatching = false;
 
   try {
-    isMatching = await bcrypt.compare(password, user.password)
+    isMatching = await bcrypt.compare(password, user.password);
     // isMatching = (password == user.password)
-
 
     if (!isMatching)
       return done(null, false, { message: "Incorrect Password" });
-    
 
     return done(null, user);
-
   } catch (error) {
-    throw error
+    throw error;
   }
-
-
-
 }
 
-passport.use('user-local', new LocalStrategy(async (username, password, done) => {
-  try {
-    const user = await User.getUserByUsername(username);
+passport.use(
+  "user-local",
+  new LocalStrategy(async (username, password, done) => {
+    try {
+      const user = await User.getUserByUsername(username);
 
-    await verifyUser(user, password, done);
-  }
-  catch (err) {
-    throw err;
-  }
-})
+      await verifyUser(user, password, done);
+    } catch (err) {
+      throw err;
+    }
+  })
 );
 
-passport.use('admin-local', new LocalStrategy(async (username, password, done) => {
-  try {
-    const admin = await Admin.getAdminByUsername(username);
-    
-    await verifyUser(admin, password, done);
-  }
-  catch (err) {
-    throw err;
-  }
-})
+passport.use(
+  "admin-local",
+  new LocalStrategy(async (username, password, done) => {
+    try {
+      const admin = await Admin.getAdminByUsername(username);
+
+      await verifyUser(admin, password, done);
+    } catch (err) {
+      throw err;
+    }
+  })
 );
 
 passport.serializeUser(function (user, done) {
@@ -107,27 +103,23 @@ passport.deserializeUser(function (user, done) {
 
 app.use((req, res, next) => {
   res.locals.current_user = req.user;
-  
+
   //set user type
   let user_type;
-  if(req.user){
-    if(req.user.user_id)
-      user_type = 'user';
-    else
-      user_type = 'admin';
+  if (req.user) {
+    if (req.user.user_id) user_type = "user";
+    else user_type = "admin";
   }
-  
 
-  res.locals.type = user_type
-  
+  res.locals.type = user_type;
+
   next();
 });
 
-
 //---------------
-// Logout 
+// Logout
 //---------------
-app.get("/logout", function(req, res){
+app.get("/logout", function (req, res) {
   req.logout();
   res.redirect("/");
 });
@@ -139,20 +131,17 @@ app.use("/dashboard", routes.dashboard);
 app.use("/register", routes.register);
 app.use("/login", routes.login);
 
-
- 
 //------------
 //Routes
 //------------
 
 app.get("/", (req, res) => {
-  res.render("index.ejs")
+  res.render("index.ejs");
 });
 
 app.get("/", async (req, res) => {
   res.send("<h1>Hello World</h1>");
 });
-
 
 app.listen(PORT, (req, res, err) => {
   console.log(`Server started at http://localhost:${PORT}`);
