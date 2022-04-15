@@ -1,3 +1,2 @@
 node_modules
-database/storage.sqlite3
-yarn.lock
+package-lock.json
